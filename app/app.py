@@ -62,7 +62,7 @@ trace_provider = TracerProvider(
     #span_processor=BatchSpanProcessor(otlp_exporter),
 )
 processor =  OTLPSpanExporter(endpoint=os.environ.get("OTLP_ENDPOINT", "localhost:4317"))
-traceProvider.add_span_processor(processor)
+trace_Provider.add_span_processor(processor)
 opentelemetry.trace.set_tracer_provider(trace_provider)
 
 # Set up metrics exporter.

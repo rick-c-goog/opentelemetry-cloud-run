@@ -21,14 +21,14 @@ import time
 
 import opentelemetry
 from opentelemetry import trace
-from opentelemetry.exporter import jaeger
+#from opentelemetry.exporter import jaeger
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
     OTLPSpanExporter,
 )
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.sdk.trace.samplers import AlwaysOnSampler
+#from opentelemetry.sdk.trace.samplers import AlwaysOnSampler
 from opentelemetry.semconv.resource import ResourceAttributes
 from opentelemetry.trace import SpanKind
 
@@ -43,10 +43,10 @@ handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s -
 logger.addHandler(handler)
 
 # Set up trace exporter.
-jaeger_exporter = jaeger.JaegerExporter(
-    agent_host_name=os.environ.get("JAEGER_AGENT_HOST", "localhost"),
-    agent_port=os.environ.get("JAEGER_AGENT_PORT", 6831),
-)
+#jaeger_exporter = jaeger.JaegerExporter(
+#    agent_host_name=os.environ.get("JAEGER_AGENT_HOST", "localhost"),
+#    agent_port=os.environ.get("JAEGER_AGENT_PORT", 6831),
+#)
 otlp_exporter = OTLPSpanExporter(endpoint=os.environ.get("OTLP_ENDPOINT", "localhost:4317"))
 
 # Set up tracer provider.
@@ -58,7 +58,7 @@ resource = Resource(
 )
 trace_provider = TracerProvider(
     resource=resource,
-    sampler=AlwaysOnSampler(),
+    #sampler=AlwaysOnSampler(),
     span_processor=BatchSpanProcessor(otlp_exporter),
 )
 opentelemetry.trace.set_tracer_provider(trace_provider)

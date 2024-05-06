@@ -1,6 +1,6 @@
 flask
 opentelemetry-api
-opentelemetry-exporter-jaeger
+
 opentelemetry-exporter-otlp
 opentelemetry-sdk
 

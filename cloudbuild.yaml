@@ -86,7 +86,7 @@ substitutions:
   _REGISTRY: ${_REGION}-docker.pkg.dev/${PROJECT_ID}/run-otel-example
   _IMAGE_APP: ${_REGISTRY}/sample-app
   _IMAGE_COLLECTOR: ${_REGISTRY}/collector
-  _SA_NAME: run-otel-example-sa
+  _SA_NAME: duetai-demo
 
 images:
   - ${_IMAGE_APP}

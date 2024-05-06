@@ -1,7 +1,8 @@
 flask
 opentelemetry-api
-
+gunicorn==22.0.0
 opentelemetry-exporter-otlp
 opentelemetry-sdk
 
 opentelemetry-exporter-otlp-proto-grpc
+Werkzeug==3.0.1

@@ -31,9 +31,9 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 #from opentelemetry.sdk.trace.samplers import AlwaysOnSampler
 from opentelemetry.semconv.resource import ResourceAttributes
 from opentelemetry.trace import SpanKind
-
+app = Flask(__name__)
 # Create channel to listen for signals.
-signalChan = threading.Event()
+#signalChan = threading.Event()
 
 # Set up logging.
 logger = logging.getLogger(__name__)
@@ -70,8 +70,8 @@ opentelemetry.trace.set_tracer_provider(trace_provider)
 
 # SIGINT handles Ctrl+C locally.
 # SIGTERM handles Cloud Run termination signal.
-signal.signal(signal.SIGINT, lambda signum, frame: signalChan.set())
-signal.signal(signal.SIGTERM, lambda signum, frame: signalChan.set())
+#signal.signal(signal.SIGINT, lambda signum, frame: signalChan.set())
+#signal.signal(signal.SIGTERM, lambda signum, frame: signalChan.set())
 
 # Start HTTP server.
 def handler(request):
@@ -120,7 +120,7 @@ def generate_spans(ctx, tracer, logger, id):
 
 def main():
     # Start HTTP server.
-    app = Flask(__name__)
+   
     app.add_url_rule("/", "index", handler, methods=["GET"])
     app.run(host='0.0.0.0', port=8080)
 

@@ -18,5 +18,4 @@ COPY requirements.txt ./
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
 COPY app.py ./
-EXPOSE 8080
-CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD exec gunicorn --bind 0.0.0.0:8080 --workers 1 --threads 8 app:app

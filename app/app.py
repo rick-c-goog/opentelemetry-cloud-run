@@ -120,26 +120,9 @@ def generate_spans(ctx, tracer, logger, id):
 
 def main():
     # Start HTTP server.
-    
-
     app = Flask(__name__)
     app.add_url_rule("/", "index", handler, methods=["GET"])
-
-    # Start the server in a separate thread to avoid blocking the main thread.
-    threading.Thread(target=app.run, kwargs={"host": "0.0.0.0", "port": 8080}).start()
-
-    # Wait for the signal to terminate the server.
-    signalChan.wait()
-
-    # Gracefully shutdown the server.
-    logger.info("Shutting down server...")
-    app.shutdown()
-
-    # Flush any remaining spans.
-    trace_provider.force_flush()
-
-    logger.info("Server exited.")
-
+    app.run(host='0.0.0.0', port=8080)
 
 if __name__ == "__main__":
     main()

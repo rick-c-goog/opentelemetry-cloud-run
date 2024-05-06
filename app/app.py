@@ -47,7 +47,7 @@ logger.addHandler(handler)
 #    agent_host_name=os.environ.get("JAEGER_AGENT_HOST", "localhost"),
 #    agent_port=os.environ.get("JAEGER_AGENT_PORT", 6831),
 #)
-otlp_exporter = OTLPSpanExporter(endpoint=os.environ.get("OTLP_ENDPOINT", "localhost:4317"))
+#otlp_exporter = OTLPSpanExporter(endpoint=os.environ.get("OTLP_ENDPOINT", "localhost:4317"))
 
 # Set up tracer provider.
 resource = Resource(
@@ -59,8 +59,10 @@ resource = Resource(
 trace_provider = TracerProvider(
     resource=resource,
     #sampler=AlwaysOnSampler(),
-    span_processor=BatchSpanProcessor(otlp_exporter),
+    #span_processor=BatchSpanProcessor(otlp_exporter),
 )
+processor =  OTLPSpanExporter(endpoint=os.environ.get("OTLP_ENDPOINT", "localhost:4317"))
+traceProvider.add_span_processor(processor)
 opentelemetry.trace.set_tracer_provider(trace_provider)
 
 # Set up metrics exporter.

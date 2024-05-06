@@ -12,12 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.20 as builder
+FROM python:3.10-slim
 WORKDIR /app
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o sample-app
-
-FROM alpine:3
-RUN apk add --no-cache ca-certificates
-COPY --from=builder /app/sample-app /sample-app
-CMD ["/sample-app"]
+COPY requirements.txt ./
+RUN python -m pip install --upgrade pip
+RUN pip install -r requirements.txt
+COPY app.py ./
+EXPOSE 8080
+CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0"]
